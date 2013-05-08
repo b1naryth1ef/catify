@@ -1,5 +1,6 @@
-import cv, requests, Image
+import cv, requests, Image, random
 from StringIO import StringIO
+from google import *
 
 def detectFaces(image, faceCascade):
     #modified from: http://www.lucaamore.com/?p=638
@@ -37,18 +38,25 @@ def pil2cvGrey(pil_im):
     cv.SetData(cv_im, pil_im.tostring(), pil_im.size[0])
     return cv_im
 
+def getSingle(q):
+    i = random.randint(1, 20)
+    r = requests.get(q[i].link)
+    if not r.status_code == 200:
+        return getSingle(q)
+    return r
 def getCatImage(h, w):
-    r = requests.get("http://thecatapi.com/api/images/get?format=src&type=png")
-    #r = requests.get("http://placekitten.com/%s/%s" % (h, w))
-    i = Image.open(StringIO(r.content))
+    q = Google.search_images(random.choice(["cat", "cats", "kitten", "kittens"]), options) #kind of inefficient, but i r lazy
+    i = Image.open(StringIO(getSingle(q).content))
     i.thumbnail((h, w), Image.ANTIALIAS)
     return i
+
+options = ImageOptions()
+options.size_category = SizeCategory.MEDIUM
 
 faceCascade = cv.Load('haarcascade_frontalface_default.xml')
 def catify(img):
     cv_im = pil2cvGrey(img)
     res = detectFaces(cv_im, faceCascade)
-    print "Faces Detected: %s" % len(res)
     for a, b in res:
         h, w = b[0]-a[0], b[1]-a[1]
         cat = getCatImage(h, w)
