@@ -390,6 +390,7 @@ class ColorType:
 def get_image_search_url(query, image_options=None, page=0, per_page=20):
     query = query.strip().replace(":", "%3A").replace("+", "%2B").replace("&", "%26").replace(" ", "+")
     url = "http://images.google.com/images?q=%s&sa=N&start=%i&ndsp=%i&sout=1" % (query, page * per_page, per_page)
+    #print url
     if image_options:
         tbs = image_options.get_tbs()
         if tbs:

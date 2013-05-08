@@ -40,13 +40,12 @@ def pil2cvGrey(pil_im):
 
 def getSingle(q):
     i = random.randint(1, 20)
-    print len(q)
     r = requests.get(q[i].link)
     if not r.status_code == 200:
         return getSingle(q)
     return r
 def getCatImage(h, w):
-    q = Google.search_images(random.choice(["cat", "cats", "kitten", "kittens"]), options, startpage=random.randint(1, 200)) #kind of inefficient, but i r lazy
+    q = Google.search_images(random.choice(["cat", "cats", "kitten", "kittens"]), options, startpage=random.randint(1, 50)) #kind of inefficient, but i r lazy
     i = Image.open(StringIO(getSingle(q).content))
     i.thumbnail((h, w), Image.ANTIALIAS)
     return i
