@@ -38,8 +38,11 @@ def pil2cvGrey(pil_im):
     return cv_im
 
 def getCatImage(h, w):
-    r = requests.get("http://placekitten.com/%s/%s" % (h, w))
-    return Image.open(StringIO(r.content))
+    r = requests.get("http://thecatapi.com/api/images/get?format=src&type=png")
+    #r = requests.get("http://placekitten.com/%s/%s" % (h, w))
+    i = Image.open(StringIO(r.content))
+    i.thumbnail((h, w), Image.ANTIALIAS)
+    return i
 
 faceCascade = cv.Load('haarcascade_frontalface_default.xml')
 def catify(img):
