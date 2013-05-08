@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CATIFY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-responsive.css" rel="stylesheet">    
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+    </style>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="container-narrow">
+      <div class="jumbotron">
+        {% if not imgdata %}
+        <h1>Catify!</h1>
+        <p class="lead">May 9th is my delightful sisters birthday. She just so happens to be a crazy cat lady, so what better than to make the CATIFY app! Upload any image and we'll catify it for you! (Margin of error: Over 9000)</p>
+        <form id="catform" action="/catify" method="post" enctype="multipart/form-data">
+          <input type="file" name="file" id="file">
+          <button id="submit" class="btn btn-large btn-success" type="submit">Submit!</button>
+        </form>
+        {% else %}
+        <div id="imgdiv">
+          <h2>Happy Burthday big sis!</h2>
+          <img src="data:image/jpeg;base64,{{ imgdata }}" id="img" class="img-polaroid"/>
+        </div>
+        <a href="/" class="btn btn-large btn-success">Again!</a>
+        {% endif %}
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p>&copy; Andrei Z 2013 | Source on <a href="http://github.com/b1naryth1ef/catify">GitHub</a></p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js//bootstrap.js"></script>
+
+  </body>
+</html>
