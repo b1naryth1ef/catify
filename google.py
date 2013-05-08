@@ -1,5 +1,4 @@
 #!/usr/bin/python
-#From: https://github.com/BirdAPI/Google-Search-API
 
 from BeautifulSoup import BeautifulSoup
 from pprint import pprint
@@ -204,10 +203,10 @@ class Google:
         return results
     
     @staticmethod
-    def search_images(query, image_options = None, pages = 1):
+    def search_images(query, image_options=None, pages=1, startpage=0, per_page=20):
         results = []
-        for i in range(pages):
-            url = get_image_search_url(query, image_options, i)
+        for i in range(startpage, startpage+pages):
+            url = get_image_search_url(query, image_options, i, per_page)
             html = get_html(url)
             if html:
                 if Google.DEBUG_MODE:
